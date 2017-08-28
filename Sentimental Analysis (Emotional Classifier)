@@ -1,0 +1,17 @@
+library(syuzhet) # Alt library of "sentiment".
+library(ggplot2)
+sentiment <- get_nrc_sentiment(textdata)
+sentiment
+
+totalsentiment <- data.frame(colSums(sentiment))
+totalsentiment
+names(totalsentiment) <- 'count'
+totalsentiment <- cbind('sentiment' = rownames(totalsentiment), totalsentiment)
+rownames(totalsentiment) <- NULL
+# Plot graph 
+ggplot(data = totalsentiment, aes(x = reorder(sentiment, -count),y = count))+
+  geom_bar(aes(fill = sentiment), stat = 'identity', position = 'dodge')+
+  geom_text(aes(label = count), position = position_dodge(width = 0.9), vjust = -0.25)+
+  theme(legend.position = 'none')
+  
+  
