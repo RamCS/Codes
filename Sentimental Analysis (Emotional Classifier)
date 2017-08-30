@@ -1,6 +1,6 @@
 library(syuzhet) # Alt library of "sentiment".
 library(ggplot2)
-sentiment <- get_nrc_sentiment(textdata)
+sentiment <- get_nrc_sentiment(textdata) # Text data is a kind text bag
 sentiment
 
 totalsentiment <- data.frame(colSums(sentiment))
