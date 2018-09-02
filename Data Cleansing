@@ -1,0 +1,27 @@
+library(tm)
+library(stringr)
+
+# Kerala Diaster news
+kk <- readLines("kerala_news.txt")
+str(kk)
+
+# Merge the n. vector to a single vector
+kk <- paste(readLines("kerala_news.txt"), collapse = " ")
+
+# Data cleansing
+kk <- gsub(pattern = "\\W", replace =" ",kk)   # 1. Remove Puntuation 
+kk <- gsub(pattern = "\\d", replace =" ",kk)   # 2. Remove Digits 
+kk <- tolower(kk)                              # 3. All in lower case
+stopwords() # TM > function
+kk <- removeWords(kk, stopwords())             # 4. Removing Stopwords, TM > function.
+kk <- removeWords(kk, c(" "," "))             # 5. Removing specific word from txt
+kk <- gsub(pattern = "\\b[A-z]\\b{1}", replace = " ", kk) # 6. Removing single alphabet(starting with letter & ending with letter) # check the video, if u want to remove specific word starting with any specific char.
+kk <- stripWhitespace(kk)                    # 7. Remove extra spaces
+
+textbag <- str_split(kk, pattern = "\\s+")  # Split the doc in words
+
+class(textbag)  # [1] "list"
+str(textbag)
+# Unlist textbag
+textbag <- unlist(textbag)
+class(textbag)  # [1] "character"
